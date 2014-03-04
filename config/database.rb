@@ -14,7 +14,7 @@ if ENV["RACK_ENV"] == 'production'
     :database => "opener-olery",
   )
 
-  client.query("CREATE TABLE IF NOT EXISTS output_scores (uuid varchar(40), raw_text text, bathroom double,breakfast double,cleanliness double,facilities double,internet double,location double,noise double,parking double,restaurant double,room double,sleeping_comfort double,staff double,swimming_pool double,value_for_money double, overall double);")
+  client.query("CREATE TABLE IF NOT EXISTS output_scores (uuid varchar(40), raw_text longtext, bathroom double,breakfast double,cleanliness double,facilities double,internet double,location double,noise double,parking double,restaurant double,room double,sleeping_comfort double,staff double,swimming_pool double,value_for_money double, overall double);")
   client.query("CREATE INDEX uuid_index ON output_scores(uuid);") if client.query("SHOW INDEX FROM output_scores").nil?
 
   ActiveRecord::Base.establish_connection(
@@ -32,7 +32,7 @@ else
     :database => DB_NAME || "opener_development"
   )
 
-  client.query("CREATE TABLE IF NOT EXISTS output_scores (uuid varchar(40), raw_text text, bathroom double,breakfast double,cleanliness double,facilities double,internet double,location double,noise double,parking double,restaurant double,room double,sleeping_comfort double,staff double,swimming_pool double,value_for_money double, overall double);")
+  client.query("CREATE TABLE IF NOT EXISTS output_scores (uuid varchar(40), raw_text longtext, bathroom double,breakfast double,cleanliness double,facilities double,internet double,location double,noise double,parking double,restaurant double,room double,sleeping_comfort double,staff double,swimming_pool double,value_for_money double, overall double);")
   client.query("CREATE INDEX uuid_index ON output_scores(uuid);") if client.query("SHOW INDEX FROM output_scores").nil?
 
   ActiveRecord::Base.establish_connection(
