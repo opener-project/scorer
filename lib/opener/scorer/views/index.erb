@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" charset="UTF-8" href="markdown.css"/>
+    <title>Opener Scorer</title>
+  </head>
+  <body>
+    <h1>Opener Scorer</h1>
+
+    <p>This Web Service, after processing the output, it stores it  in a
+      MySQL database when using callbacks and lets you view the output.</p>
+    <p>When using callbacks, the last Callback URL should be the URL that points
+      to Scorer. Then, when you submit your text, you get a URL where the result
+      will be shown, when the processing is over.</p>
+      
+      <h2>Search for an output</h2>
+
+      <p>* required</p>
+      
+
+      <form action="<%=url("/")%>" method="GET">
+        <div>
+          <label for="request_id"/>Type the ID here*</label>
+          <br/>
+
+          <input type="text" name="request_id" id="text" rows="10" cols="50"/>
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
+
+  </body>
+</html>
+
