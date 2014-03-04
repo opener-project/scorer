@@ -1,0 +1,88 @@
+PATH
+  remote: .
+  specs:
+    opener-scorer (0.0.1)
+      activerecord (~> 3.2)
+      builder
+      httpclient
+      mysql2
+      nokogiri
+      opener-webservice
+      sinatra (~> 1.4.2)
+      uuidtools
+
+GEM
+  remote: https://rubygems.org/
+  remote: https://opener:Aek0YeeGup0ceephohcieW0eichiGha2Thoo0lohshunae9emaikeitainooleap@geminabox.olery.com/
+  specs:
+    activemodel (3.2.17)
+      activesupport (= 3.2.17)
+      builder (~> 3.0.0)
+    activerecord (3.2.17)
+      activemodel (= 3.2.17)
+      activesupport (= 3.2.17)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
+    activesupport (3.2.17)
+      i18n (~> 0.6, >= 0.6.4)
+      multi_json (~> 1.0)
+    arel (3.0.3)
+    builder (3.0.4)
+    coderay (1.1.0)
+    cucumber (1.3.11)
+      builder (>= 2.1.2)
+      diff-lcs (>= 1.1.3)
+      gherkin (~> 2.12)
+      multi_json (>= 1.7.5, < 2.0)
+      multi_test (>= 0.0.2)
+    diff-lcs (1.2.5)
+    gherkin (2.12.2)
+      multi_json (~> 1.3)
+    httpclient (2.3.4.1)
+    i18n (0.6.9)
+    json (1.8.1)
+    method_source (0.8.2)
+    mini_portile (0.5.2)
+    multi_json (1.8.4)
+    multi_test (0.0.3)
+    mysql2 (0.3.15)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
+    opener-webservice (0.1.1)
+      json
+      sinatra (~> 1.4.3)
+      uuidtools
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    rack (1.5.2)
+    rack-protection (1.5.2)
+      rack
+    rake (10.1.1)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.8)
+    rspec-expectations (2.14.5)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.6)
+    sinatra (1.4.4)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    slop (3.4.7)
+    tilt (1.4.1)
+    tzinfo (0.3.38)
+    uuidtools (2.1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cucumber
+  opener-scorer!
+  pry
+  rake
+  rspec
