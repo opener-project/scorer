@@ -28,7 +28,8 @@ module Opener
 
             if output
               content_type(:json)
-              body( {:uuid=>output.uuid, :scores=>output.text}.to_json)
+              scores = JSON.parse(output.text)
+              body( {:uuid=>output.uuid, :scores=>scores}.to_json)
             else
               halt(404, "No record found for ID #{params[:request_id]}")
             end
