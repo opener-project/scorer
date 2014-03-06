@@ -18,7 +18,7 @@ module Opener
     #
     class OutputProcessor
       attr_accessor :input, :lemmas_array, :lemmas_hash, :polarities_hash
-      
+
       ##
       # @param [String] input
       #
@@ -28,7 +28,7 @@ module Opener
         @lemmas_hash = {}
         @polarities_hash = {}
       end
-      
+
       ##
       # Process the document and return the scores for the available topics.
       #
@@ -36,28 +36,28 @@ module Opener
       #
       def process
         scores = {}
-        
+
         build_lemmas_hash
         build_polarities_hash
-        
+
         if overall_score = get_overall_score
           scores[:overall] = overall_score
         end
-        
-        topics.each do |topic|
+
+        lemmas_hash.keys.each do |topic|
           score = get_topic_score(topic)
           if score
             scores[topic] = score
           end
         end
-        
+
         return scores
       end
-      
+
       protected
-      
+
       ##
-      # Create a hash with all lemma ids per property and also an array with 
+      # Create a hash with all lemma ids per property and also an array with
       # all lemma ids.
       #
       def build_lemmas_hash
@@ -71,10 +71,10 @@ module Opener
           end
         end
       end
-      
+
       ##
       # Create a hash with all lemma ids that have a polarity.
-      # 
+      #
       def build_polarities_hash
         input.css('opinions opinion_expression').each do |expression|
           polarity = expression.attr("polarity").to_sym
@@ -83,25 +83,25 @@ module Opener
           end
         end
       end
-      
+
       ##
       # Get the score for all lemmas that have a polarity.
       #
       # @return [Float]
       #
       def get_overall_score
-        return calculate_score(lemmas_array)       
+        return calculate_score(lemmas_array)
       end
-      
+
       ##
       # Given a topic, return the sentiment score of the lemmas of this topic.
       #
       # @return [Float] || [NilClass]
-      #      
+      #
       def get_topic_score(topic)
         return calculate_score(lemmas_hash[topic]) if lemmas_hash[topic]
       end
-      
+
       ##
       # Given an array of lemma ids, calculate the sentiment score.
       #
@@ -109,46 +109,21 @@ module Opener
       #
       def calculate_score(lemma_ids)
         polarities = []
-        
+
         lemma_ids.each do |id|
           polarities << polarities_hash[id]
         end
-        
+
         positive = polarities.count(:positive)
         negative = polarities.count(:negative)
-        
+
         return if (positive + negative) == 0
-        
+
         score = ((positive - negative).to_f) / (positive + negative)
-        
+
         return score
       end
-      
-      ##
-      # Returns an array with all the topics that potentially exist in the KAF
-      # Document
-      #
-      # @return [Array]
-      #
-      def topics
-        [
-          :bathroom,
-          :breakfast,
-          :cleanliness,
-          :facilities,
-          :internet, 
-          :location, 
-          :noise, 
-          :parking, 
-          :restaurant, 
-          :room, 
-          :sleeping_comfort, 
-          :staff, 
-          :swimming_pool, 
-          :value_for_money
-        ].freeze
-      end
-      
+
     end # OutputProcessor
   end # Scorer
 end # Opener
