@@ -7,10 +7,10 @@ module Opener
     class Server < Sinatra::Base
 
       post '/' do
-        output            = OutputScore.find_by_uuid(params[:request_id])
-        processor         = OutputProcessor.new(params[:input])
-        scores            = processor.process
-        output.update_attributes(scores)
+        output            = Output.new
+        output.uuid       = params[:request_id]
+        output.text       = OutputProcessor.new(params[:input]).process.to_json
+        output.save
       end
 
       get '/' do
@@ -24,11 +24,11 @@ module Opener
       get '/:request_id' do
         unless params[:request_id] == 'favicon.ico'
           begin
-            output = OutputScore.find_by_uuid(params[:request_id])
+            output = Output.find_by_uuid(params[:request_id])
 
             if output
               content_type(:json)
-              body(output.to_json)
+              body( {:uuid=>output.uuid, :scores=>output.text}.to_json)
             else
               halt(404, "No record found for ID #{params[:request_id]}")
             end
