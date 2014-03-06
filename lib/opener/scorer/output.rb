@@ -1,7 +1,7 @@
 require 'active_record'
 
 module Opener
-  class Outlet
+  class Scorer
     class Output < ActiveRecord::Base
        attr_accessible :uuid, :text
 
