@@ -1,0 +1,90 @@
+
+<?xml version='1.0' encoding='UTF-8'?>
+<KAF xml:lang="en" version="v1.opener">
+  <kafHeader>
+    <fileDesc/>
+    <linguisticProcessors layer="text">
+      <lp name="opener-sentence-splitter-en" timestamp="2014-03-06T11:08:24Z" version="0.0.1"/>
+      <lp name="opener-tokenizer-en" timestamp="2014-03-06T11:08:24Z" version="1.0.1"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="terms">
+      <lp name="ehu-pos-en" timestamp="now" version="1.0"/>
+      <lp timestamp="2014-03-06T11:08:26UTC" version="4nov2013_1.0" name="VUA polarity tagger multilanguage"/>
+    </linguisticProcessors>
+    <linguisticProcessor layer="features">
+      <lp timestamp="2014-03-06T11:08:26UTC" version="4nov2013_1.0" name="VUA property tagger"/>
+    </linguisticProcessor>
+    <linguisticProcessors layer="opinions">
+      <lp name="Deluxe opinion miner (CRF+SVM)" version="10jan2014_2.0" timestamp="2014-03-06T11:08:27UTC"/>
+    </linguisticProcessors>
+  </kafHeader>
+  <text>
+    <wf wid="w1" sent="1" para="1" offset="0" length="3">The</wf>
+    <wf wid="w2" sent="1" para="1" offset="4" length="4">wifi</wf>
+    <wf wid="w3" sent="1" para="1" offset="9" length="3">was</wf>
+    <wf wid="w4" sent="1" para="1" offset="13" length="8">terrible</wf>
+    <wf wid="w5" sent="1" para="1" offset="21" length="1">.</wf>
+  </text>
+  <terms>
+    <!--The-->
+    <term tid="t1" type="close" lemma="the" pos="D" morphofeat="DT">
+      <span>
+        <target id="w1"/>
+      </span>
+    </term>
+    <!--wifi-->
+    <term tid="t2" type="open" lemma="wifi" pos="N" morphofeat="NN">
+      <span>
+        <target id="w2"/>
+      </span>
+    </term>
+    <!--was-->
+    <term tid="t3" type="open" lemma="be" pos="V" morphofeat="VBD">
+      <span>
+        <target id="w3"/>
+      </span>
+    </term>
+    <!--terrible-->
+    <term tid="t4" type="open" lemma="terrible" pos="G" morphofeat="JJ">
+      <span>
+        <target id="w4"/>
+      </span>
+      <sentiment polarity="negative" resource="VUA_olery_lexicon_en_lmf"/>
+    </term>
+    <!--.-->
+    <term tid="t5" type="close" lemma="." pos="O" morphofeat=".">
+      <span>
+        <target id="w5"/>
+      </span>
+    </term>
+  </terms>
+  <features>
+    <properties>
+      <property pid="p1" lemma="internet">
+        <references>
+          <!--wifi-->
+          <span>
+            <target id="t2"/>
+          </span>
+        </references>
+      </property>
+    </properties>
+  </features>
+  <opinions>
+    <opinion oid="o1">
+      <opinion_target>
+        <!--The wifi-->
+        <span>
+          <target id="t1"/>
+          <target id="t2"/>
+        </span>
+      </opinion_target>
+      <opinion_expression polarity="negative" strength="1">
+        <!--terrible-->
+        <span>
+          <target id="t4"/>
+        </span>
+      </opinion_expression>
+    </opinion>
+  </opinions>
+</KAF>
