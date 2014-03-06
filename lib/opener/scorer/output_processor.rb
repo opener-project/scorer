@@ -76,10 +76,18 @@ module Opener
       # Create a hash with all lemma ids that have a polarity.
       #
       def build_polarities_hash
-        input.css('opinions opinion_expression').each do |expression|
-          polarity = expression.attr("polarity").to_sym
-          expression.css('span target').each do |target|
-            polarities_hash[target.attr('id')] = polarity
+        input.at('opinions').css('opinion').each do |opinion|
+          polarity = opinion.at('opinion_expression').attr('polarity').to_sym
+          if opinion.at('opinion_target')
+            opinion.at('opinion_target').css('span target').each do |target|
+              polarities_hash[target.attr('id')] ||= []
+              polarities_hash[target.attr('id')] << polarity
+            end
+          end
+
+          opinion.at('opinion_expression').css('span target').each do |target|
+            polarities_hash[target.attr('id')] ||= []
+            polarities_hash[target.attr('id')] << polarity
           end
         end
       end
@@ -90,7 +98,19 @@ module Opener
       # @return [Float]
       #
       def get_overall_score
-        return calculate_score(lemmas_array)
+        polarities = []
+        input.at('opinions').css('opinion').each do |opinion|
+          polarities << opinion.at('opinion_expression').attr('polarity').to_sym
+        end
+        
+        positive = polarities.count(:positive)
+        negative = polarities.count(:negative)
+        
+        return if (positive + negative) == 0
+        
+        score = ((positive - negative).to_f) / (positive + negative)
+        
+        return score     
       end
 
       ##
@@ -112,11 +132,11 @@ module Opener
 
         lemma_ids.each do |id|
           polarities << polarities_hash[id]
-        end
-
-        positive = polarities.count(:positive)
-        negative = polarities.count(:negative)
-
+        end     
+        
+        positive = polarities.flatten.count(:positive)
+        negative = polarities.flatten.count(:negative)
+        
         return if (positive + negative) == 0
 
         score = ((positive - negative).to_f) / (positive + negative)
