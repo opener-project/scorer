@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    opener-scorer (0.1.0)
+    opener-scorer (0.3.1)
       activerecord (~> 3.2)
       activerecord-jdbcmysql-adapter
       builder
