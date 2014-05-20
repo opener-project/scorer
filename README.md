@@ -1,15 +1,19 @@
 Scorer
 ------------
 
-TODO
-
-### Confused by some terminology?
-
 Component that stores results from the Opener Web Services chain into a MySQL 
 Database and shows them into your browser.
 
 It can be used instead of Opener Outlet, to calculate overall sentiment score
 and sentiment score per topic.
+
+### Confused by some terminology?
+
+This software is part of a larger collection of natural language processing
+tools known as "the OpeNER project". You can find more information about the
+project at (the OpeNER portal)[http://opener-project.github.io]. There you can
+also find references to terms like KAF (an XML standard to represent linguistic
+annotations in texts), component, cores, scenario's and pipelines.
 
 Quick Use Example
 -----------------
