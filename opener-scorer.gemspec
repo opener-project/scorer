@@ -25,6 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'nokogiri'
   gem.add_dependency 'httpclient'
   gem.add_dependency 'uuidtools'
+  gem.add_dependency 'puma'
   gem.add_dependency 'jdbc-mysql'
   gem.add_dependency 'activerecord-jdbcmysql-adapter'
   gem.add_dependency 'activerecord', '~>3.2'
