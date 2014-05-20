@@ -10,15 +10,22 @@ Gem::Specification.new do |gem|
   gem.has_rdoc              = 'yard'
   gem.required_ruby_version = '>= 1.9.2'
 
-  gem.files       = `git ls-files`.split("\n")
-  gem.executables = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files  = gem.files.grep(%r{^(test|spec|features)/})
+  gem.files = Dir.glob([
+    'config/**/*',
+    'lib/**/*',
+    'config.ru',
+    '*.gemspec',
+    'README.md'
+  ]).select { |file| File.file?(file) }
+
+  gem.executables = Dir.glob('bin/*').map { |file| File.basename(file) }
 
   gem.add_dependency 'builder'
   gem.add_dependency 'sinatra', '~>1.4.2'
   gem.add_dependency 'nokogiri'
   gem.add_dependency 'httpclient'
   gem.add_dependency 'uuidtools'
+  gem.add_dependency 'puma'
   gem.add_dependency 'jdbc-mysql'
   gem.add_dependency 'activerecord-jdbcmysql-adapter'
   gem.add_dependency 'activerecord', '~>3.2'
