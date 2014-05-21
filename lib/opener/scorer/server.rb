@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'nokogiri'
-require File.expand_path('../../../../config/database', __FILE__)
 
 module Opener
   class Scorer
