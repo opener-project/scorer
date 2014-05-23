@@ -30,7 +30,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'opener-daemons'
   gem.add_dependency 'opener-core', ['>= 0.1.2']
   gem.add_dependency 'jdbc-mysql'
-  gem.add_dependency 'activerecord-jdbcmysql-adapter'
+  gem.add_dependency 'activerecord-jdbcmysql-adapter', '1.0.3'
   gem.add_dependency 'activerecord', '~>3.2'
   gem.add_dependency 'opener-webservice'
 
