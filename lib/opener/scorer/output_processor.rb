@@ -86,10 +86,11 @@ module Opener
               polarities_hash[target.attr('id')] << polarity
             end
           end
-
-          opinion.at('opinion_expression').css('span target').each do |target|
-            polarities_hash[target.attr('id')] ||= []
-            polarities_hash[target.attr('id')] << polarity
+          if targets = opinion.at('opinion_expression')
+            opinion.at('opinion_expression').css('span target').each do |target|
+              polarities_hash[target.attr('id')] ||= []
+              polarities_hash[target.attr('id')] << polarity
+            end
           end
         end
       end
