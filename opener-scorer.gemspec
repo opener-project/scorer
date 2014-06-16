@@ -28,7 +28,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'uuidtools'
   gem.add_dependency 'puma'
   gem.add_dependency 'opener-daemons'
-  gem.add_dependency 'opener-core', ['>= 0.1.2']
   gem.add_dependency 'jdbc-mysql'
   gem.add_dependency 'activerecord-jdbcmysql-adapter'
   gem.add_dependency 'activerecord', '~>3.2'
