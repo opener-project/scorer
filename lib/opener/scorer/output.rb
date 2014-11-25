@@ -1,5 +1,3 @@
-require 'active_record'
-
 module Opener
   class Scorer
     class Output < ActiveRecord::Base
@@ -7,4 +5,3 @@ module Opener
     end
   end
 end
-

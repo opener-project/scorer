@@ -1,16 +1,15 @@
-require 'sinatra'
-require 'nokogiri'
+require 'opener/webservice'
 
 module Opener
   class Scorer
-    class Server < Sinatra::Base
+    ##
+    # Server for storing scorer data in MySQL.
+    #
+    class Server < Webservice::Server
+      set :views, File.expand_path('../views', __FILE__)
 
-      post '/' do
-        output            = Output.new
-        output.uuid       = params[:request_id]
-        output.text       = OutputProcessor.new(params[:input]).process.to_json
-        output.save
-      end
+      self.text_processor  = OutputProcessor
+      self.accepted_params = [:input, :request_id]
 
       get '/' do
         if params[:request_id]
@@ -22,30 +21,18 @@ module Opener
 
       get '/:request_id' do
         unless params[:request_id] == 'favicon.ico'
-          begin
-            output = Output.find_by_uuid(params[:request_id])
+          output = Output.find_by_uuid(params[:request_id])
 
-            if output
-              content_type(:json)
-              scores = JSON.parse(output.text)
-              body( {:uuid=>output.uuid, :scores=>scores}.to_json)
-            else
-              halt(404, "No record found for ID #{params[:request_id]}")
-            end
-          rescue => error
-            error_callback = params[:error_callback]
+          if output
+            content_type(:json)
 
-            submit_error(error_callback, error.message) if error_callback
+            scores = JSON.parse(output.text)
 
-            raise(error)
+            body({:uuid=>output.uuid, :scores=>scores}.to_json)
+          else
+            halt(404, "No record found for ID #{params[:request_id]}")
           end
         end
-      end
-
-      private
-
-      def submit_error(url, message)
-        HTTPClient.post(url, :body => {:error => message})
       end
     end # Server
   end # Scorer
