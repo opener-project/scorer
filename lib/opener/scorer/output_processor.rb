@@ -16,7 +16,7 @@ module Opener
       # @option options [Symbol] :request_id
       #
       def initialize(options = {})
-        @request_id = options[:request_id]
+        @request_id = options[:request_id] || SecureRandom.hex
       end
 
       ##
