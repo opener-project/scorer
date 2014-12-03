@@ -24,12 +24,11 @@ Gem::Specification.new do |gem|
 
   gem.executables = Dir.glob('bin/*').map { |file| File.basename(file) }
 
-  gem.add_dependency 'builder'
   gem.add_dependency 'nokogiri'
   gem.add_dependency 'slop', '~> 3.5'
   gem.add_dependency 'jdbc-mysql'
   gem.add_dependency 'activerecord-jdbcmysql-adapter'
-  gem.add_dependency 'activerecord', '~> 3.2'
+  gem.add_dependency 'activerecord', '~> 3.0'
 
   gem.add_dependency 'opener-daemons', '~> 2.2'
   gem.add_dependency 'opener-webservice', '~> 2.1'
