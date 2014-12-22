@@ -1,15 +1,16 @@
 require File.expand_path('../lib/opener/scorer/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.name                  = 'opener-scorer'
-  gem.version               = Opener::Scorer::VERSION
-  gem.authors               = ['development@olery.com']
-  gem.summary               = 'MySQL data storing for the web services output when using callbacks.'
-  gem.description           = gem.summary
-  gem.homepage              = "http://opener-project.github.com/"
-  gem.has_rdoc              = 'yard'
+  gem.name        = 'opener-scorer'
+  gem.version     = Opener::Scorer::VERSION
+  gem.authors     = ['development@olery.com']
+  gem.summary     = 'Component for calculating scores of KAF documents'
+  gem.description = gem.summary
+  gem.homepage    = "http://opener-project.github.com/"
+  gem.has_rdoc    = 'yard'
+  gem.license     = 'Apache 2.0'
+
   gem.required_ruby_version = '>= 1.9.2'
-  gem.license = 'Apache 2.0'
 
   gem.files = Dir.glob([
     'config/**/*',
@@ -23,18 +24,15 @@ Gem::Specification.new do |gem|
 
   gem.executables = Dir.glob('bin/*').map { |file| File.basename(file) }
 
-  gem.add_dependency 'builder'
-  gem.add_dependency 'sinatra', '~>1.4.2'
-  gem.add_dependency 'sinatra-contrib'
   gem.add_dependency 'nokogiri'
-  gem.add_dependency 'httpclient'
-  gem.add_dependency 'uuidtools'
-  gem.add_dependency 'puma'
-  gem.add_dependency 'opener-daemons'
+  gem.add_dependency 'slop', '~> 3.5'
   gem.add_dependency 'jdbc-mysql'
   gem.add_dependency 'activerecord-jdbcmysql-adapter'
-  gem.add_dependency 'activerecord', '~>3.2'
-  gem.add_dependency 'opener-webservice'
+  gem.add_dependency 'activerecord', '~> 3.0'
+
+  gem.add_dependency 'opener-daemons', '~> 2.2'
+  gem.add_dependency 'opener-webservice', '~> 2.1'
+  gem.add_dependency 'opener-core', '~> 2.2'
 
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'cucumber'

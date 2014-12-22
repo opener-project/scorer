@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
-require 'json'
-require_relative '../lib/opener/scorer/output_processor'
 
-processor = Opener::Scorer::OutputProcessor.new((STDIN.tty? ? nil : STDIN.read))
+require_relative '../lib/opener/scorer'
 
-puts processor.process.to_json
+cli = Opener::Scorer::CLI.new
+
+cli.run
