@@ -36,7 +36,7 @@ describe Opener::Scorer::OutputProcessor do
     end
     
     example 'result returns only properties that have a score' do
-      @processor.polarities_hash["t1"].should == [:negative]
+      @processor.polarities_hash["t1"].should == {:negative => 1}
     end  
     
   end

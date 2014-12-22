@@ -81,16 +81,19 @@ module Opener
         if opinions = input.at('opinions')
           opinions.css('opinion').each do |opinion|
             polarity = opinion.at('opinion_expression').attr('polarity').to_sym
-            if opinion.at('opinion_target')
-              opinion.at('opinion_target').css('span target').each do |target|
-                polarities_hash[target.attr('id')] ||= []
-                polarities_hash[target.attr('id')] << polarity
+            strength = opinion.at('opinion_expression').attr('strength').to_i.abs
+            
+            if targets = opinion.at('opinion_target')
+              targets.css('span target').each do |target|
+                polarities_hash[target.attr('id')] ||= {}
+                polarities_hash[target.attr('id')][polarity] = strength
               end
             end
-            if targets = opinion.at('opinion_expression')
-              opinion.at('opinion_expression').css('span target').each do |target|
-                polarities_hash[target.attr('id')] ||= []
-                polarities_hash[target.attr('id')] << polarity
+            
+            if expressions = opinion.at('opinion_expression')
+              expressions.css('span target').each do |expression|
+                polarities_hash[expression.attr('id')] ||= {}
+                polarities_hash[expression.attr('id')][polarity] = strength
               end
             end
           end
@@ -104,14 +107,17 @@ module Opener
       #
       def get_overall_score
         score = 0
-        polarities = []
+        polarities = {}
+        polarities[:positive] = []
+        polarities[:negative] = []
         if opinions = input.at('opinions')
           input.at('opinions').css('opinion').each do |opinion|
-            polarities << opinion.at('opinion_expression').attr('polarity').to_sym
+            sentiment = opinion.at('opinion_expression').attr('polarity').to_sym
+            polarities[sentiment] << opinion.at('opinion_expression').attr('strength').to_i.abs
           end
         
-          positive = polarities.count(:positive)
-          negative = polarities.count(:negative)
+          positive = polarities[:positive].inject(0, :+)
+          negative = polarities[:negative].inject(0, :+)
         
           return if (positive + negative) == 0
         
@@ -135,14 +141,16 @@ module Opener
       # @return [Float]
       #
       def calculate_score(lemma_ids)
-        polarities = []
-
+        positive_polarities = []
+        negative_polarities = []
+        
         lemma_ids.each do |id|
-          polarities << polarities_hash[id]
+          positive_polarities << polarities_hash[id].fetch(:positive, 0)
+          negative_polarities << polarities_hash[id].fetch(:negative, 0)
         end     
         
-        positive = polarities.flatten.count(:positive)
-        negative = polarities.flatten.count(:negative)
+        positive = positive_polarities.compact.inject(0, :+)
+        negative = negative_polarities.compact.inject(0, :+)
         
         return if (positive + negative) == 0
 
