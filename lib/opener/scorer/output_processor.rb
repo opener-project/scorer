@@ -102,8 +102,7 @@ module Opener
 
           if op_target
             op_target.css('span target').each do |target|
-              require 'pry'
-              polarities_hash[target.attr('id')] ||= {} rescue binding.pry
+              polarities_hash[target.attr('id')] ||= {}
               polarities_hash[target.attr('id')][polarity] = strength
             end
           end
@@ -180,7 +179,7 @@ module Opener
 
         positive = positive_polarities.compact.inject(0, :+)
         negative = negative_polarities.compact.inject(0, :+)
-        
+
         return if (positive + negative) == 0
 
         score = ((positive - negative).to_f) / (positive + negative)
