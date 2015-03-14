@@ -18,7 +18,7 @@ else
   ActiveRecord::Base.establish_connection(
     adapter:  'mysql2',
     host:     db_host || 'localhost',
-    username: 'root',
+    username: db_user || 'root',
     password: db_pass || '',
     database: db_name || 'opener_development'
   )
